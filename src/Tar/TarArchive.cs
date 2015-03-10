@@ -564,6 +564,10 @@ namespace ICSharpCode.SharpZipLib.Tar
 				name = name.Substring(Path.GetPathRoot(name).Length);
 			}
 			
+            if (string.IsNullOrEmpty(entry.Name)) {
+                return;
+            }
+
 			name = name.Replace('/', Path.DirectorySeparatorChar);
 			
 			string destFile = Path.Combine(destDir, name);
@@ -588,7 +592,7 @@ namespace ICSharpCode.SharpZipLib.Tar
 				
 				if (process) {
 					bool asciiTrans = false;
-					
+
 					Stream outputStream = File.Create(destFile);
 					if (this.asciiTranslate) {
 						asciiTrans = !IsBinary(destFile);
